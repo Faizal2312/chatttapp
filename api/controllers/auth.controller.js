@@ -18,7 +18,7 @@ const signup = async (req, res) => {
     }
 
     const boyProfilePic = `https://avatar.iran.liara.run/public/boy?username=${username}`;
-    const girlProliePic = `https://avatar.iran.liara.run/public/boy?username=${username}`;
+    const girlProfilePic = `https://avatar.iran.liara.run/public/girl?username=${username}`;
 
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password,salt);
@@ -28,7 +28,7 @@ const signup = async (req, res) => {
       username,
       password:hashedPassword,
       gender,
-      profilePic: gender === "male" ? boyProfilePic : girlProliePic
+      profilePic: gender === "male" ? boyProfilePic : girlProfilePic
     })
 
     if(newUser){
@@ -71,7 +71,12 @@ const login = async (req, res) => {
   
 
     generateTokenAndSetCookie(user._id,res);
-    res.status(200).json({message:"user logged in"})
+    res.status(200).json({
+      _id: user._id,
+			fullName: user.fullName,
+			username: user.username,
+			profilePic: user.profilePic,
+    })
     
 
   }catch(error){

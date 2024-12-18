@@ -1,9 +1,11 @@
 const Conversation = require('../models/conversation.model')
-const Message = require('../models/message.model')
+const Message = require('../models/message.model');
+const { getReceiverSocketId } = require('../socket/socket');
+const {io} = require('../socket/socket')
 
 const sendMessage = async (req,res)=>{
     try{
-        const {message} = req.body;
+        const {msg} = req.body;
         const {id:receiverId} = req.params;
         const senderId = req.user._id;
 
@@ -22,7 +24,7 @@ const sendMessage = async (req,res)=>{
         const newMessage = await Message.create({
             senderId,
             receiverId,
-            message
+            message:msg
         })
         if(newMessage){
            await Conversation.findByIdAndUpdate(conversation._id,{
@@ -30,6 +32,12 @@ const sendMessage = async (req,res)=>{
            })
         }
 
+        //Socket.io functionaltiy
+        const receiverSocketId = getReceiverSocketId(receiverId);
+        if(receiverSocketId){
+            io.to(receiverSocketId).emit('newMessage',newMessage)
+        }
+        
         res.status(201).json(newMessage)
 
     }catch(error){
