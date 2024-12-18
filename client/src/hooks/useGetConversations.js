@@ -9,6 +9,7 @@ const useGetConversation = ()=>{
             setLoading(true)
             try{
                 const res = await fetch('/api/users')
+                
                 const data = await res.json();
                 console.log(data)
                 if(data.error){

@@ -3,7 +3,10 @@
   "version": "1.0.0",
   "main": "server.js",
   "scripts": {
-    "server": "nodemon api/server.js"
+    "server": "nodemon api/server.js",
+    "start": "nodemon api/server.js",
+    "build":"npm install && npm install --prefix client && npm run build --prefix client"
+
   },
   "keywords": [],
   "author": "",
