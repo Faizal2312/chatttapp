@@ -20,7 +20,7 @@ const useLogin = ()=>{
 
             })
             const data = await res.json();
-            console.log("dat from use login ",data)
+         
             if(data.error){
                 throw new Error(data.error)
                 
@@ -41,7 +41,7 @@ const useLogin = ()=>{
 export default useLogin;
 
 const handleInputErrors = (username,password)=>   {
-    console.log(username,password)
+   
     if(!username || !password){
         toast.error("All fields required")
         return false

@@ -6,14 +6,13 @@ const Message = ({ msg }) => {
   const { authUser } = useAuthContext();
   const { selectedConversation, message } = useConversation();
   const formatedTime = extractTime(msg.createdAt);
-  console.log(formatedTime);
+
   const fromMe = msg.senderId === authUser._id;
   const chatclassName = fromMe ? "chat-end" : "chat-start";
   const profilePic = fromMe
     ? authUser.profilePic
     : selectedConversation.profilePic;
-  console.log(authUser);
-  console.log(selectedConversation);
+
 
   const bubbleBgColor = fromMe ? "bg-blue-500" : "";
 

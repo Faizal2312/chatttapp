@@ -15,7 +15,7 @@ const useGetMessage = ()=>{
                 if(data.error){
                     throw new Error(data.error)
                 }
-                console.log("message from useGetMessage : ",data)
+           
                 setMessage(data)
 
             }catch(error){

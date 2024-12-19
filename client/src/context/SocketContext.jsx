@@ -28,7 +28,6 @@ export const SocketContextProvider = ({ children }) => {
       setSocket(socket);
 
       socket.on("getOnlineUsers", (users) => {
-        console.log("onlineUsers: ", users);
         setOnlineUsers(users);
       });
       return () => socket.close();
